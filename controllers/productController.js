@@ -1,8 +1,6 @@
 const Product = require('../models/productModel')
 const asyncHandler = require('express-async-handler')
 
-
-
 const getProducts = asyncHandler(async(req, res) => {
     try {
         const products = await Product.find({})

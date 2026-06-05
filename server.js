@@ -15,7 +15,6 @@ app.use(express.json())
 app.use('/api/products', productRoute);
 
 app.get('/', (req, res) => {
-    throw new Error('Fibby Error')
     res.send(`Hello!`)
 })
 

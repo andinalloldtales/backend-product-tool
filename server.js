@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const productRoute = require('./routes/productRoute')
+const errorMiddleware = require('./middleware/errorMiddleware')
 
 app.use(express.urlencoded({extended: false}))
 
@@ -14,6 +15,7 @@ app.use(express.json())
 app.use('/api/products', productRoute);
 
 app.get('/', (req, res) => {
+    throw new Error('Fibby Error')
     res.send(`Hello!`)
 })
 
@@ -21,7 +23,7 @@ app.get('/blog', (req, res) => {
     res.send(`Hey blog!`)
 })
 
-
+app.use(errorMiddleware);
 
 
 const PORT = process.env.PORT || 5173

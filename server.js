@@ -11,7 +11,7 @@ app.use(express.json())
 
 // routing
 
-app.use('/api', productRoute);
+app.use('/api/products', productRoute);
 
 app.get('/', (req, res) => {
     res.send(`Hello!`)

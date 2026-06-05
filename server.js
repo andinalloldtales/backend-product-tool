@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const Product = require('./models/productModel')
 const app = express()
+app.use(express.urlencoded({extended: false}))
 
 
 app.use(express.json())
@@ -46,17 +47,32 @@ app.post('/product', async(req, res) => {
     }
 })
 
-app.put('products/:id', async(req, res) => {
+app.put('/products/:id', async(req, res) => {
     try {
         const {id} = req.params;
         const product = await Product.findByIdAndUpdate(id, req.body);
         if(!product){
             return res.status(404).json({message: `cannot find any product with this ID ${id}`})
         }
+        const updatedProduct = await Product.findById(id);
+        res.status(200).json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+app.delete('/products/:id', async(req, res) => {
+    try {
+        const {id} = req.params;
+        const product = await Product.findByIdAndDelete(id);
+        if(!product){
+            return res.status(404).status({message: `cannot find any product with this ID ${id}`})
+        }
         res.status(200).json(product);
     } catch (error) {
         res.status(500).json({message: error.message})
     }
+
 })
 
 

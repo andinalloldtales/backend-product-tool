@@ -8,7 +8,7 @@ var cors = require('cors')
 const FRONTEND = process.env.FRONTEND
 
 var corsOptions = {
-    origin: FRONTEND,
+    origin: [FRONTEND, 'http://localhost:5174' ],
     optionSuccessStatus: 200 // some legacy browsers (IE11, various SmartTvs) Choke on 204
 }
 

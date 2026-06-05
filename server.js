@@ -14,14 +14,15 @@ app.get('/blog', (req, res) => {
     res.send(`Hey blog!`)
 })
 
-app.listen(5173, ()=> {
-    console.log(`Node API running is running on port 5173`)
-})
 
-
+mongoose.set("strictQuery", false)
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
     console.log('connected to MongoDB')
+    app.listen(5173, ()=> {
+    console.log(`Node API running is running on port 5173`)
+})
+  
 }).catch((error) => {
     console.log(error)
 })

@@ -4,10 +4,15 @@ const mongoose = require('mongoose')
 const app = express()
 const productRoute = require('./routes/productRoute')
 const errorMiddleware = require('./middleware/errorMiddleware')
+var cors = require('cors')
 
+var corsOptions = {
+    origin: 'htpp://127.0.0.1:5173',
+    optionSuccessStatus: 200 // some legacy browsers (IE11, various SmartTvs) Choke on 204
+}
+
+app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: false}))
-
-
 app.use(express.json())
 
 // routing

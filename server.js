@@ -66,7 +66,7 @@ app.delete('/products/:id', async(req, res) => {
         const {id} = req.params;
         const product = await Product.findByIdAndDelete(id);
         if(!product){
-            return res.status(404).status({message: `cannot find any product with this ID ${id}`})
+            return res.status(404).json({message: `cannot find any product with this ID ${id}`})
         }
         res.status(200).json(product);
     } catch (error) {
@@ -76,14 +76,14 @@ app.delete('/products/:id', async(req, res) => {
 })
 
 
-
-
+const PORT = process.env.PORT || 5173
 mongoose.set("strictQuery", false)
 mongoose.connect(process.env.MONGODB_URI)
+
 .then(() => {
     console.log('connected to MongoDB')
-    app.listen(5173, ()=> {
-    console.log(`Node API running is running on port 5173`)
+    app.listen(PORT, ()=> {
+    console.log(`Node API running is running on port ${process.env.PORT}`)
 })
   
 }).catch((error) => {

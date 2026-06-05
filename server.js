@@ -1,5 +1,9 @@
+require('dotenv').config({ path: './secrets.env' })
+console.log(process.env.MONGODB_URI)
 const express = require('express')
 const app = express()
+const mongoose = require('mongoose')
+
 
 // routing
 app.get('/', (req, res) => {
@@ -12,4 +16,12 @@ app.get('/blog', (req, res) => {
 
 app.listen(5173, ()=> {
     console.log(`Node API running is running on port 5173`)
+})
+
+
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    console.log('connected to MongoDB')
+}).catch((error) => {
+    console.log(error)
 })
